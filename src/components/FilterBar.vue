@@ -83,12 +83,11 @@ import img7 from "@/assets/images/users/user7.jpg";
 import img8 from "@/assets/images/users/user8.jpg";
 import img9 from "@/assets/images/users/user9.jpg";
 import img10 from "@/assets/images/users/user10.jpg";
-import Filter from "./icons/filter.vue";
-import ListCheck from "./icons/ListCheck.vue";
-import FilterList from "./FilterList.vue";
+import Filter from "@/components/icons/Filter.vue";
+import ListCheck from "@/components/icons/ListCheck.vue";
+import FilterList from "@/components/FilterList.vue";
 
 const activeDropdown = ref(null);
-const selectedConfig = ref([]);
 
 const emit = defineEmits(["onSearch", "onPeopleListChange","onCardConfig",'updateFilter']);
 const searchparams = ref("");
