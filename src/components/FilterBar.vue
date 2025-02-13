@@ -269,7 +269,6 @@ const calendar = ref(null);
   justify-content: space-between;
   height: 30px;
   width: 90px;
-  /* background-color: #b8b8b8; */
 }
 
 @media (min-width: 786px) {
@@ -431,10 +430,6 @@ overflow: hidden;
   transform: rotate(45deg) translate(-55%, -50%);
   z-index: 2;
 }
-/* .list-items-checked {
- background-color: #3d3d3d23;
-color: #fff !important;
-} */
 .list-items {
   position: relative;
   padding: 6px;

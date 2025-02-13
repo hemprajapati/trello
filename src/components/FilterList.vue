@@ -185,7 +185,6 @@ const setDate = (type) => {
 const redableDate = computed(() => {
   if (!date.value) return "";
   const options = { year: "numeric", month: "long", day: "numeric" };
-  console.log(date.value);
 
   const dateObj =
     date.value instanceof Date ? date.value : new Date(date.value);
@@ -193,7 +192,6 @@ const redableDate = computed(() => {
   return dateObj.toLocaleDateString(undefined, options);
 });
 async function move() {
-  console.log("MOVE");
   await calendar.value.moveBy(1);
   await calendar.value.moveBy(-1);
 }
@@ -213,10 +211,6 @@ onMounted(() => {
 
 });
 
-onUnmounted(() => {
-  console.log("AAA");
-
-})
 </script>
 
 <style scoped>
@@ -264,7 +258,6 @@ h5 {
 .multiselect-container .selected-item {
   display: inline-block;
   background: #000;
-  /* padding: 0.01rem 0 0.03rem 0.5rem; */
   padding-left: 0.4rem !important;
   padding-right: 0.4rem !important;
 
@@ -327,7 +320,6 @@ h5 {
 }
 
 .date-picker-wrapper {
-  /* border: 1px solid #b8b8b8; */
   display: flex;
   gap: 0.5rem;
   padding: 0.5rem 0.5rem;

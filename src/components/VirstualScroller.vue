@@ -135,24 +135,20 @@ const checkEnd = (evt) => {
   }
   
 )
+const listContainer = document.querySelectorAll('.list-container');
+listContainer.forEach((container) => {
+  const hasFromClass = [...container.children].some(child => 
+    child.querySelector(`.${from}`)
+  );
+  if(hasFromClass) {
+    container.scrollTo({
+      top: container.scrollTop + 2,
+      behavior: 'smooth'
+    });
+  }
+  });
+  
 };
-watch(list, (newVal,oldVal) => {
-  // const listContainer = document.querySelector('.list-container');
-  // if (newVal.length ?? oldVal) {
-  //   console.log("AAAAAAA");
-    
-  //   listContainer.scrollTo({
-  //     top: 50,
-  //     behavior: 'smooth'
-  //   });
-  // }
-
-},
-{
-  deep:true,
-  immediate:true
-}
-);
 const checkStart = (evt) => {
  dragItem.value = evt.item.__draggable_context.element.data;
 };  
@@ -223,7 +219,6 @@ const deleteCard = (data, index) => {
 }
 .imge-section {
   display: flex;
-  /* height: 55px; */
 }
 .image-item {
   top: 50%;
@@ -233,7 +228,6 @@ const deleteCard = (data, index) => {
 .plus-sign {
   height: 30px;
   width: 30px;
-  /* overflow: hidden; */
   overflow: hidden;
   border: 2px solid #fafafa;
   border-radius: 50%;

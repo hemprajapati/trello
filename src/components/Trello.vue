@@ -66,7 +66,7 @@ const isLoading = ref(false);
 
 export default {
   name: "Trello",
-  components: { draggable, VirstualScroller, FilterBar, Loader }, // Add VDatePicker to components
+  components: { draggable, VirstualScroller, FilterBar, Loader },
   setup() {
     const currentHeading = ref("");
     const lists = ref([]);
@@ -362,7 +362,6 @@ export default {
   display: flex;
   align-items: center;
   background-color: #ebebeb;
-  /* height: 4px; */
   border-bottom: 1px solid #b2b2b2;
 }
 
