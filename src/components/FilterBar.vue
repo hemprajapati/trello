@@ -52,17 +52,14 @@
             <h5>Layout Configration</h5>
           <div
             class="list-items"
-            :class="{'list-items-checked': isListItemsChecked(item.key)}"
-            v-for="(item, index) in layoutStructure"
-            :key="index"
           >
-            <input
-              type="checkbox"
-              class="list-checkbox"
-              @click="handleListCheckChange($event,item.key)"
-              :checked="isListItemsChecked(item.key)"
-            />
-            <span>{{ item.label }}</span>
+          <label class="custom-checkbox" v-for="(item, index) in layoutStructure" :key="index">
+            <input type="checkbox" :value="item.key"
+            v-model="listItems" />
+            <span class="checkmark"></span>
+            {{ item.label }}
+          </label>
+            
           </div>
           <div class="call-to-action">
             <button class="btn-cancel" @click="cancleConfig"> Cancel </button>
@@ -91,6 +88,7 @@ import ListCheck from "./icons/ListCheck.vue";
 import FilterList from "./FilterList.vue";
 
 const activeDropdown = ref(null);
+const selectedConfig = ref([]);
 
 const emit = defineEmits(["onSearch", "onPeopleListChange","onCardConfig",'updateFilter']);
 const searchparams = ref("");
@@ -165,13 +163,7 @@ const layoutStructure = [
 const checkedItem = ref([]);
 const listItems = ref(['name','assignedTo','priority','issueType','label']);
 
-const handleListCheckChange = (e,key) => {
-    if (e.target.checked) {
-    listItems.value.push(key);
-  } else {
-    listItems.value = listItems.value.filter((i) => i !== key);
-  }
-};
+
 const handleCancle = () =>{
     activeDropdown.value = null
 }
@@ -186,25 +178,27 @@ const applyConfig = () =>{
   emit("onCardConfig", listItems.value );
   activeDropdown.value =null
 }
+let timeoutId;
+
 const handleCheck = (e, id) => {
   if (e.target.checked) {
     checkedItem.value.push(id);
   } else {
     checkedItem.value = checkedItem.value.filter((i) => i !== id);
   }
+  // clearTimeout(timeoutId);
+  // timeoutId = setTimeout(()=> emit("onPeopleListChange", checkedItem.value), 1500);
   emit("onPeopleListChange", checkedItem.value);
 };
 const isChecked = (id) => {
   return checkedItem.value.includes(id);
 };
-const isListItemsChecked = (key) => {
-    
-  return listItems.value.includes(key);
-};
+
 const handleInput = (e) => {
   const value = e.target.value;
   searchparams.value = value.replace(/[^a-zA-Z0-9]/g, "");
-  emit("onSearch", searchparams.value);
+  clearTimeout(timeoutId);
+  timeoutId = setTimeout(()=> emit("onSearch", searchparams.value), 1500);
 };
 const toggleDropdown = (type) => {
   activeDropdown.value = activeDropdown.value === type ? null : type;
@@ -213,10 +207,16 @@ onMounted(() => {
   emit("onCardConfig", listItems.value )
 
 })
-
-const selectedPriorities = ref([]);
-const selectedIssueTypes = ref([]);
-const selectedListItems = ref([]);
+function debounce(func, delay) {
+  let timeoutId;
+  return function (...args) {
+    const context = this;
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      func.apply(context, args);
+    }, delay);
+  };
+}
 const search = ref("");
 const calendar = ref(null);
 </script>
@@ -437,15 +437,12 @@ overflow: hidden;
 color: #fff !important;
 } */
 .list-items {
-  display: flex;
   position: relative;
-  align-items: center;
   padding: 6px;
   margin: 1px; 
 }
 .list-items span {
   display: inline-block;
-  margin-left: 35px;
   font-size: 13px;
   font-weight: 600;
 }

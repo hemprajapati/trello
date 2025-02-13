@@ -110,3 +110,49 @@ img {
  color: #fff;
  background: #000000;
 }
+
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px;
+  gap: 8px;
+  user-select: none;
+  padding: 0.3rem 0;
+  padding-right: 1.3rem;
+}
+
+.custom-checkbox input[type="checkbox"] {
+  display: none;
+}
+
+.checkmark {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #000;
+  border-radius: 4px;
+  background-color: transparent;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.custom-checkbox input[type="checkbox"]:checked+.checkmark {
+  background-color: #000;
+  border-color: #000;
+}
+
+.custom-checkbox input[type="checkbox"]:checked+.checkmark::after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 5px;
+  width: 6px;
+  height: 12px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.custom-checkbox:hover .checkmark {
+  opacity: 0.8;
+}

@@ -7,12 +7,13 @@
         :animation="325"
         ghost-class="ghost"
         :force-fallback="true"
-        :scroll-sensitivity="100"
+        :scroll-sensitivity="150"
         :scroll-speed="40"
-        name="ggg"
+        :name="name"
         group="group1"
         :move="checkMove"
         @end="checkEnd"
+        @start="checkStart"
       >
         <template #item="{ element }">
           <div class="card">
@@ -24,7 +25,7 @@
               {{ element.data?.name }}
             </p>
             <div class="action-menu">
-              <div  v-if="config.includes('assignedTo')"
+              <div v-if="config.includes('assignedTo')"
                class="imge-section position-relative">
                 <div
                   class="position-absolute image-item"
@@ -49,7 +50,7 @@
                   </div>
                 </div>
               </div>
-              <div class="card-status">
+              <div class="card-status ">
                 <div  v-if="config.includes('priority')" class="priority-status">
                   <span
                     :class="{
@@ -87,12 +88,14 @@ import draggable from "vuedraggable";
 import { useVirtualList } from "@vueuse/core";
 import { computed, onMounted, ref, watch } from "vue";
 
+const dragItem = ref(null);
 const emit = defineEmits([
   "toggleField",
   "onTextChange",
   "onEnter",
   "onCardClose",
   "onCardDelete",
+  'onItemPlaceChange'
 ]);
 const props = defineProps({
   itemList: {
@@ -113,30 +116,45 @@ const filteredList = computed(() => {
   return props.itemList;
 });
 const { list, containerProps, wrapperProps } = useVirtualList(filteredList, {
-  itemHeight: 198,
+  itemHeight: 200,
   overscan: 3,
 });
 
-const checkMove = (evt) => {
-  // const fromList = evt.from.getAttribute("class").split(" ")[0];
-  // const toList = evt.to.getAttribute("class").split(" ")[0];
-  // const allowMove = {
-  //   pending: ["reseachDevelopement"],
-  //   reseachDevelopement: ["opened"],
-  //   opened: ["toDo"],
-  //   toDo: ["inProgress"],
-  //   inProgress: ["inReview"],
-  //   inReview: ["qa"],
-  //   qa: ["completed"],
-  // };
-  // if (!(allowMove[fromList].includes(toList) || fromList === toList)) {
-  //   // return false;
-  // }
-};
 const checkEnd = (evt) => {
-  console.log("evt", evt);
-  return false;
+  const newIndex = evt.newIndex;
+  const from = evt.from.getAttribute("class").split(" ")[0]; 
+  const to = evt.to.getAttribute("class").split(" ")[0];
+  const item = evt.to.__draggable_component__.list[newIndex >0 ? newIndex-1:newIndex].data;
+
+  emit("onItemPlaceChange",
+  {
+    draggedTask:dragItem.value,
+    sourceColumnKey:from,
+    targetColumnKey:to,
+    insertAfterTask:item
+  }
+)
 };
+watch(list, (newVal,oldVal) => {
+  // const listContainer = document.querySelector('.list-container');
+  // if (newVal.length ?? oldVal) {
+  //   console.log("AAAAAAA");
+    
+  //   listContainer.scrollTo({
+  //     top: 50,
+  //     behavior: 'smooth'
+  //   });
+  // }
+
+},
+{
+  deep:true,
+  immediate:true
+}
+);
+const checkStart = (evt) => {
+ dragItem.value = evt.item.__draggable_context.element.data;
+};  
 const toggleField = (data) => {
   emit("toggleField", data);
 };
@@ -156,11 +174,12 @@ const deleteCard = (data, index) => {
 
 <style scoped>
 .list-container {
-  height: calc(100vh - 13rem);
+  height: calc(100vh - 13rem) !important;
   overflow-x: hidden !important;
-  overflow-y: auto;
 }
-
+.inner-list {
+  height: 100%!important;
+}
 .card {
   border: 1px solid #b8b8b8;
   background-color: #ffffff;
@@ -187,9 +206,7 @@ const deleteCard = (data, index) => {
 .ghost {
   opacity: 0.4;
 }
-.inner-list {
-  height: calc(100vh - 15rem);
-}
+
 .seperator {
   display: block;
   height: 1px;
@@ -197,14 +214,15 @@ const deleteCard = (data, index) => {
   background-color: #b8b8b87b;
 }
 .action-menu {
-  padding: 0 0.7rem;
-  margin-bottom: 0.4rem;
+  position: relative;
+  padding: 0.6rem;
   display: flex;
   justify-content: space-between;
+  height: 45px;
 }
 .imge-section {
   display: flex;
-  height: 55px;
+  /* height: 55px; */
 }
 .image-item {
   top: 50%;
@@ -239,8 +257,8 @@ const deleteCard = (data, index) => {
   justify-content: space-between;
   gap: 0.4rem;
   font-size: 12px;
-
   text-transform: capitalize;
+  margin-left: auto;
 }
 .priority-status,
 .issue-type {

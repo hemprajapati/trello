@@ -71,7 +71,7 @@
         </div>
       </div>
       <div class="call-to-action">
-        <button class="btn-cancel" @click="closeModal">Clear All</button>
+        <!-- <button class="btn-cancel" @click="closeModal">Close</button> -->
         <button class="btn-apply" @click="applyFilters" >
 
           <div v-if="loader" class="spinner-border" role="status">
@@ -131,15 +131,15 @@ watch([search], ([newPriorities]) => {
     .splice(0, 5);
 });
 const closeModal = () => {
-  localStorage.setItem(
-    "setFilters",
-    JSON.stringify({
-      priorities: [],
-      issueTypes: [],
-      labels: [],
-      date: null,
-    })
-  );
+  // localStorage.setItem(
+  //   "setFilters",
+  //   JSON.stringify({
+  //     priorities: [],
+  //     issueTypes: [],
+  //     labels: [],
+  //     date: null,
+  //   })
+  // );
   emit("onCancle");
 };
 const applyFilters = () => {
@@ -159,12 +159,12 @@ const applyFilters = () => {
     labels: selectedListItems.value,
     date: date.value,
   });
-  // setTimeout(() => {
-  //   loader.value = false; // Turn off the loader after 2 seconds
-  // }, 2000);
 };
 const selectItem = (option) => {
-  if (!selectedListItems.value.includes(option)) {
+  const index = selectedListItems.value.findIndex(
+    (item) => item.key === option.key
+  );
+  if (index === -1) {
     selectedListItems.value.push(option);
   }
   search.value = "";
@@ -261,55 +261,6 @@ h5 {
   font-weight: 700;
   margin: 0.5rem 0;
 }
-
-.custom-checkbox {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  font-size: 16px;
-  gap: 8px;
-  user-select: none;
-  padding: 0.3rem 0;
-  padding-right: 1.3rem;
-}
-
-.custom-checkbox input[type="checkbox"] {
-  display: none;
-}
-
-.checkmark {
-  width: 20px;
-  height: 20px;
-  border: 2px solid #000;
-  border-radius: 4px;
-  background-color: transparent;
-  transition: all 0.2s ease;
-  position: relative;
-}
-
-.custom-checkbox input[type="checkbox"]:checked+.checkmark {
-  background-color: #000;
-  border-color: #000;
-}
-
-.custom-checkbox input[type="checkbox"]:checked+.checkmark::after {
-  content: "";
-  position: absolute;
-  top: 0px;
-  left: 5px;
-  width: 6px;
-  height: 12px;
-  border: solid #fff;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-}
-
-.custom-checkbox:hover .checkmark {
-  opacity: 0.8;
-}
-
-.multiselect-container {}
-
 .multiselect-container .selected-item {
   display: inline-block;
   background: #000;
