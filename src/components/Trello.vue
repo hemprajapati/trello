@@ -59,7 +59,7 @@
 import axios from "axios";
 import { computed, onMounted, onUnmounted, reactive, ref, watch } from "vue";
 import draggable from "vuedraggable";
-import VirstualScroller from "./virstualScroller.vue";
+import VirstualScroller from "./VirstualScroller.vue";
 import FilterBar from "./FilterBar.vue";
 import Loader from "./TrelloLoader.vue";
 const isLoading = ref(false);
