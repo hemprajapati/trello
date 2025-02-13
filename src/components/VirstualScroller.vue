@@ -35,7 +35,7 @@
                 >
                   <div class="image-wrapper">
                     <img
-                      :src="`/src/assets/images/users/${item.image}.jpg`"
+                      :src="`/images/users/${item.image}.jpg`"
                       alt=""
                     />
                   </div>

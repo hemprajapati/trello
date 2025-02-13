@@ -72,17 +72,17 @@
 </template>
 
 <script setup>
-import { onMounted, provide, ref } from "vue";
-import img1 from "@/assets/images/users/user1.jpg";
-import img2 from "@/assets/images/users/user2.jpg";
-import img3 from "@/assets/images/users/user3.jpg";
-import img4 from "@/assets/images/users/user4.jpg";
-import img5 from "@/assets/images/users/user5.jpg";
-import img6 from "@/assets/images/users/user6.jpg";
-import img7 from "@/assets/images/users/user7.jpg";
-import img8 from "@/assets/images/users/user8.jpg";
-import img9 from "@/assets/images/users/user9.jpg";
-import img10 from "@/assets/images/users/user10.jpg";
+import { onMounted, ref } from "vue";
+import img1 from "/images/users/user1.jpg";
+import img2 from "/images/users/user2.jpg";
+import img3 from "/images/users/user3.jpg";
+import img4 from "/images/users/user4.jpg";
+import img5 from "/images/users/user5.jpg";
+import img6 from "/images/users/user6.jpg";
+import img7 from "/images/users/user7.jpg";
+import img8 from "/images/users/user8.jpg";
+import img9 from "/images/users/user9.jpg";
+import img10 from "/images/users/user10.jpg";
 import Filter from "@/components/icons/Filter.vue";
 import ListCheck from "@/components/icons/ListCheck.vue";
 import FilterList from "@/components/FilterList.vue";
