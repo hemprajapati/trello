@@ -186,9 +186,8 @@ const handleCheck = (e, id) => {
   } else {
     checkedItem.value = checkedItem.value.filter((i) => i !== id);
   }
-  // clearTimeout(timeoutId);
-  // timeoutId = setTimeout(()=> emit("onPeopleListChange", checkedItem.value), 1500);
-  emit("onPeopleListChange", checkedItem.value);
+  clearTimeout(timeoutId);
+  timeoutId = setTimeout(()=> emit("onPeopleListChange", checkedItem.value), 1500);
 };
 const isChecked = (id) => {
   return checkedItem.value.includes(id);

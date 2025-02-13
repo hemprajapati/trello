@@ -1,11 +1,5 @@
 <template>
   <div class="wrapper container-fluid position-relative">
-    <div
-      v-if="error.isVisible"
-      class="position-absolute d-flex justify-content-center align-items-center card error-msg"
-    >
-      <h6 class="text-danger">{{ error.errorName }}</h6>
-    </div>
     <div class="py-3 flex justify-content-between">
       <FilterBar
         @onSearch="handleSearch"

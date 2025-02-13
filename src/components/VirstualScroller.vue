@@ -133,6 +133,7 @@ const checkEnd = (evt) => {
     targetColumnKey:to,
     insertAfterTask:item
   }
+  
 )
 };
 watch(list, (newVal,oldVal) => {
