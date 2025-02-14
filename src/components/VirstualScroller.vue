@@ -143,7 +143,6 @@ listContainer.forEach((container) => {
   if(hasFromClass) {
     container.scrollTo({
       top: container.scrollTop + 2,
-      behavior: 'smooth'
     });
   }
   });

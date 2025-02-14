@@ -265,7 +265,6 @@ export default {
         listContainer.forEach((container) => {
           container.scrollTo({
             top: 0,
-            behavior: "smooth",
           });
         });
       }
