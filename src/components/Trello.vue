@@ -20,21 +20,21 @@
             <div class="p-0 d-flex heading-wrapper">
               <p class="heading flex-grow-1 mt-3 ms-3">
                 {{ element.name }}
-                <span class="fw-bold fs-6"> ( {{ element.blocks.length }} ) </span>
+                <span> ({{ element.blocks.length }} ) </span>
               </p>
               <div
                 class="circle-wrapper"
                 @click="element.toggle = !element.toggle"
               >
                 <div class="circle my-1"></div>
-                <!-- <div
+                <div
                   v-if="element.toggle"
                   class="card p-1 action-card position-absolute"
                 >
                   <p @click="deleteStep(index)" class="m-0 fw-bold ps-2 py-1">
                     Delete step
                   </p>
-                </div> -->
+                </div>
               </div>
             </div>
             <VirstualScroller
@@ -79,7 +79,7 @@ export default {
       people: [],
       filters: {},
     });
-    const cardConfig = ref([]); 
+    const cardConfig = ref([]);
     const createNewList = () => {
       lists.value.push({
         name: "",
@@ -115,6 +115,10 @@ export default {
 
     const handleChange = ($event) => {
       currentHeading.value = $event.target.value;
+    };
+
+    const generateID = (args) => {
+      return args.length + 1;
     };
 
     const handleEnter = ($event, args) => {
@@ -208,9 +212,6 @@ export default {
     };
 
     const filterdData = computed(() => {
-      console.log("AAAAA");
-      
-      isLoading.value = true;
       let filterData = lists.value;
       if (checkFilters()) {
         filterData = filterData.map((category) => {
@@ -268,7 +269,6 @@ export default {
           return { ...category, blocks: [] };
         });
       }
-      isLoading.value = false;
       return filterData;
     });
     watch(filterdData, () => {
@@ -376,7 +376,6 @@ export default {
   position: relative;
   height: 35px;
   width: 35px;
-  z-index: 5;
   display: flex;
   justify-items: flex-end;
   align-items: center;
@@ -414,7 +413,7 @@ export default {
 .circle-wrapper .action-card {
   top: 30px;
   right: 5px !important;
-  z-index: 5;
+  z-index: 400;
   width: 160px;
   box-shadow: 0px 12px 10px 0px #0000009e !important;
 }

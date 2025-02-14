@@ -86,7 +86,6 @@
 
 <script setup>
 import { computed, onMounted, onUnmounted, ref, watch } from "vue";
-import { formatDate } from "@/utils/dateUtils";
 const emit = defineEmits(["save", "onCancle"]);
 const loader = ref(false);
 const selectedPriorities = ref([]);
@@ -183,7 +182,15 @@ const setDate = (type) => {
     date.value = tomorrow;
   }
 };
-const redableDate = computed(() => formatDate(date.value));
+const redableDate = computed(() => {
+  if (!date.value) return "";
+  const options = { year: "numeric", month: "long", day: "numeric" };
+
+  const dateObj =
+    date.value instanceof Date ? date.value : new Date(date.value);
+
+  return dateObj.toLocaleDateString(undefined, options);
+});
 async function move() {
   await calendar.value.moveBy(1);
   await calendar.value.moveBy(-1);

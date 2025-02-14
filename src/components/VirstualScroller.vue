@@ -76,12 +76,6 @@
                 {{ item.label }}
               </span>
             </div>
-            <div class="p-0 issue-date">
-              <Clock />
-              <span >
-                {{formatDate(element.data.date)}}
-              </span>
-            </div>
           </div>
         </template>
       </draggable>
@@ -93,8 +87,6 @@
 import draggable from "vuedraggable";
 import { useVirtualList } from "@vueuse/core";
 import { computed, onMounted, ref, watch } from "vue";
-import Clock from "@/components/icons/Clock.vue";
-import { formatDate } from "@/utils/dateUtils";
 
 const dragItem = ref(null);
 const emit = defineEmits([
@@ -314,13 +306,5 @@ const deleteCard = (data, index) => {
   font-weight: 500;
   background: #4b4b4b;
   color: #fff;
-}
-.issue-date {
-  padding-bottom: 4px !important;
-  margin: 0 8px;
-  display: flex;
-  font-size: 12px;
-  align-items: center;
-  gap: 0.5rem;
 }
 </style>
