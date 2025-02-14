@@ -20,22 +20,8 @@
             <div class="p-0 d-flex heading-wrapper">
               <p class="heading flex-grow-1 mt-3 ms-3">
                 {{ element.name }}
-                <span> ({{ element.blocks.length }} ) </span>
+                <span> ( {{ element.blocks.length }} ) </span>
               </p>
-              <div
-                class="circle-wrapper"
-                @click="element.toggle = !element.toggle"
-              >
-                <div class="circle my-1"></div>
-                <div
-                  v-if="element.toggle"
-                  class="card p-1 action-card position-absolute"
-                >
-                  <p @click="deleteStep(index)" class="m-0 fw-bold ps-2 py-1">
-                    Delete step
-                  </p>
-                </div>
-              </div>
             </div>
             <VirstualScroller
               :itemList="element.blocks"
