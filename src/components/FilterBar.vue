@@ -55,6 +55,7 @@
           >
           <label class="custom-checkbox" v-for="(item, index) in layoutStructure" :key="index">
             <input type="checkbox" :value="item.key"
+            :disabled="item.dissable"
             v-model="listItems" />
             <span class="checkmark"></span>
             {{ item.label }}
@@ -140,10 +141,12 @@ const layoutStructure = [
   },
   {
     key: "name",
+    dissable: true,
     label: "name",
   },
   {
     key: "assignedTo",
+    dissable: true,
     label: "Assigned To",
   },
   {

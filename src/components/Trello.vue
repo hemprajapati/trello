@@ -15,7 +15,7 @@
           v-for="(element, index) in filterdData"
           class="trello"
           :key="element.id || index"
-        >
+        > 
           <div class="col-12 col-sm-8 col-md-5 col-lg-3 card-list">
             <div class="p-0 d-flex heading-wrapper">
               <p class="heading flex-grow-1 mt-3 ms-3">
@@ -48,13 +48,14 @@ import draggable from "vuedraggable";
 import VirstualScroller from "./VirstualScroller.vue";
 import FilterBar from "./FilterBar.vue";
 import Loader from "./TrelloLoader.vue";
-const isLoading = ref(false);
 
 export default {
   name: "Trello",
   components: { draggable, VirstualScroller, FilterBar, Loader },
   setup() {
     const currentHeading = ref("");
+    const isLoading = ref(false);
+
     const lists = ref([]);
     const error = reactive({
       errorName: "",
@@ -255,9 +256,10 @@ export default {
           return { ...category, blocks: [] };
         });
       }
+      isLoading.value = false;
       return filterData;
     });
-    watch(filterdData, () => {
+    watch(query, () => {
       const listContainer = document.querySelectorAll(".list-container");
       if (listContainer) {
         listContainer.forEach((container) => {
@@ -335,7 +337,7 @@ export default {
 
 @media (min-width: 992px) {
   .card-list {
-    width: 460px;
+    width: 540px;
   }
 }
 

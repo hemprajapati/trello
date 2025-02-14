@@ -138,7 +138,10 @@ img {
   background-color: #000;
   border-color: #000;
 }
-
+.custom-checkbox input[type="checkbox"]:disabled + .checkmark,
+.custom-checkbox input[type="checkbox"]:disabled ~ span {
+  opacity: 0.2;
+}
 .custom-checkbox input[type="checkbox"]:checked+.checkmark::after {
   content: "";
   position: absolute;

@@ -178,11 +178,11 @@ const deleteCard = (data, index) => {
   height: 100%!important;
 }
 .card {
-  border: 1px solid #b8b8b8;
+  border: 1px solid #b8b8b8cc;
   background-color: #ffffff;
-  margin: 14px 6px;
+  margin: 14px;
   cursor: grab;
-  box-shadow: 1px 2px 2px #d0d0d0;
+  box-shadow: 1px 2px 3px #d0d0d0;
 }
 
 .card p {
